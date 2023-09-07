@@ -1,0 +1,27 @@
+### Register User
+POST http://localhost:8000/api/user/register
+Content-Type: application/json
+
+{
+    "name": "Abdur Rahim",
+    "email": "abdoerrahiem@gmail.com",
+    "phone": "089694624299",
+    "password": "abdoerrahiem",
+    "address": "Jl. Bardan nadi",
+    "province": "Kalimantan Barat",
+    "city": "Mempawah",
+    "isAdmin": true
+}
+
+### Login User
+POST http://localhost:8000/api/user/login
+Content-Type: application/json
+
+{
+    "email": "abdoerrahiem@gmail.com",
+    "password": "abdoerrahiem"
+}
+
+### Get Current User
+GET http://localhost:8000/api/user/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjgxNTdjOTE3OGRmNTdlY2Y5N2YxZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5Mzk4MDY3MCwiZXhwIjoxNjk0NTg1NDcwfQ.gVQxzBdJ0TljhiKWoPWZuSRf2iQmmB2yDLYlLWHh3EM
