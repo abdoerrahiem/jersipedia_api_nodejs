@@ -24,4 +24,21 @@ Content-Type: application/json
 
 ### Get Current User
 GET http://localhost:8000/api/user/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjgxNTdjOTE3OGRmNTdlY2Y5N2YxZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5Mzk4MDY3MCwiZXhwIjoxNjk0NTg1NDcwfQ.gVQxzBdJ0TljhiKWoPWZuSRf2iQmmB2yDLYlLWHh3EM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjgxNTdjOTE3OGRmNTdlY2Y5N2YxZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5NDEwNTY0NywiZXhwIjoxNjk0NzEwNDQ3fQ.2zkAi_84TaFbBX_xrG6sLc7n1m-qf462psYsHDgPLQs
+
+### Update Current User
+PUT  http://localhost:8000/api/user/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjgxNTdjOTE3OGRmNTdlY2Y5N2YxZCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5NDEwNTY0NywiZXhwIjoxNjk0NzEwNDQ3fQ.2zkAi_84TaFbBX_xrG6sLc7n1m-qf462psYsHDgPLQs
+Content-Type: application/json
+
+{
+    "name": "Abdur Rahim 2",
+    "email": "abdoerrahiem@gmail.com",
+    "phone": "089694624299",
+    "password": "abdoerrahiem",
+    "address": "Jl. Bardan nadi",
+    "province": "Kalimantan Barat",
+    "city": "Mempawah",
+    "isAdmin": true,
+    "photo": "https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/fd35c-no-user-image-icon-27.png?fit=500%2C500&ssl=1"
+}

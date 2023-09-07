@@ -14,9 +14,7 @@ connectDB()
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (req: Request, res: Response) =>
-  res.json({ success: true, message: 'JersiPedia API' })
-)
+app.get('/', (_, res) => res.json({ success: true, message: 'JersiPedia API' }))
 
 app.use('/api/user', userRoute)
 
@@ -26,4 +24,5 @@ app.use(errorHandler)
 const PORT = process.env.PORT || 8000
 app.listen(PORT, (): void => console.log(`Server is running on ${PORT}`))
 
-// Deploy on: https://jersipedia.cyclic.cloud
+// Deployed on: https://jersipedia.cyclic.cloud
+// Deploy using: https://app.cyclic.sh/#/
