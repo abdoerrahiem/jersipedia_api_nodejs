@@ -15,7 +15,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req: Request, res: Response) =>
-  res.json({ success: true, message: 'Welcome, JersiPedia API' })
+  res.json({ success: true, message: 'JersiPedia API' })
 )
 
 app.use('/api/user', userRoute)
