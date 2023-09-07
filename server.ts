@@ -25,3 +25,5 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT || 8000
 app.listen(PORT, (): void => console.log(`Server is running on ${PORT}`))
+
+// Deploy on: https://jersipedia.cyclic.cloud
