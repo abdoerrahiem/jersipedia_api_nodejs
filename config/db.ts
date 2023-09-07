@@ -1,11 +1,9 @@
 import mongoose, { ConnectOptions } from 'mongoose'
 
-const url = process.env.MONGO_URI
-
 const connectDB = async () => {
   try {
     await mongoose.connect(
-      url as string,
+      process.env.MONGO_URI as string,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

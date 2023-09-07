@@ -5,9 +5,9 @@ import { notFound, errorHandler } from './middlewares/error'
 import cors from 'cors'
 import userRoute from './routes/userRoute'
 
-const app: Application = express()
-
 dotenv.config()
+
+const app: Application = express()
 
 connectDB()
 
