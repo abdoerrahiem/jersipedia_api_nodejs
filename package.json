@@ -5,7 +5,8 @@
   "author": "abdoerrahiem",
   "license": "MIT",
   "scripts": {
-    "server": "npx tsc && ts-node-dev server.ts"
+    "server": "npx tsc && ts-node-dev server.ts",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
