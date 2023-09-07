@@ -1,12 +1,13 @@
 {
   "name": "jersipedia_api",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "main": "server.ts",
   "author": "abdoerrahiem",
   "license": "MIT",
   "scripts": {
     "server": "ts-node-dev server.ts",
-    "build": "rm -rf dist && npx tsc"
+    "build": "rm -rf dist && npx tsc",
+    "start": "ts-node-dev server.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
