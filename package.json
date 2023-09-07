@@ -1,7 +1,7 @@
 {
   "name": "jersipedia_api",
   "version": "1.0.0",
-  "main": "server.ts",
+  "main": "dist/server.js",
   "author": "abdoerrahiem",
   "license": "MIT",
   "scripts": {
