@@ -7,7 +7,7 @@
   "scripts": {
     "server": "ts-node-dev server.ts",
     "build": "rm -rf dist && npx tsc",
-    "start": "ts-node-dev server.ts"
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
