@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/User'
 import generateToken from '../utils/generateToken'
+import { cloudinary } from '../config/cloudinary'
 
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body
@@ -66,3 +67,33 @@ export const updateUser = asyncHandler(async (req, res) => {
     message: 'Your profile updated.',
   })
 })
+
+export const updatePhotoUser = asyncHandler(async (req, res) => {
+  const file = req?.file
+
+  if (!file?.path) {
+    res.status(400)
+    throw new Error('Image cannot be empty.')
+  }
+
+  if (!file?.mimetype?.includes('image')) {
+    res.status(400)
+    throw new Error('Image is not valid.')
+  }
+
+  const data = await cloudinary.uploader.upload(String(file.path), {
+    folder: process.env.CLOUDINARY_FOLDER,
+  })
+  const user = await User.findById(req.user?._id)
+  if (user !== null) {
+    user.photo = data.secure_url
+  }
+  await user?.save()
+
+  res.json({
+    success: true,
+    message: 'Your photo updated.',
+  })
+})
+
+export const updatePassword = asyncHandler(async (req, res) => {})

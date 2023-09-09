@@ -4,12 +4,15 @@ import connectDB from './config/db'
 import { notFound, errorHandler } from './middlewares/error'
 import cors from 'cors'
 import userRoute from './routes/userRoute'
+import rajaOngkirRoute from './routes/rajaOngkirRoute'
+import connectCloudinary from './config/cloudinary'
 
 dotenv.config()
 
 const app: Application = express()
 
 connectDB()
+connectCloudinary()
 
 app.use(cors())
 app.use(express.json())
@@ -17,6 +20,7 @@ app.use(express.json())
 app.get('/', (_, res) => res.json({ success: true, message: 'JersiPedia API' }))
 
 app.use('/api/user', userRoute)
+app.use('/api/raja-ongkir', rajaOngkirRoute)
 
 app.use(notFound)
 app.use(errorHandler)
