@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/User'
 import generateToken from '../utils/generateToken'
 import { cloudinary } from '../config/cloudinary'
+import bcrypt from 'bcrypt'
 
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body
@@ -95,4 +96,25 @@ export const updatePhotoUser = asyncHandler(async (req, res) => {
   })
 })
 
-export const updatePassword = asyncHandler(async (req, res) => {})
+export const updatePassword = asyncHandler(async (req, res) => {
+  const { oldPassword, newPassword } = req.body
+
+  const user = await User.findById(req.user?._id)
+
+  if (await user?.comparePassword(oldPassword)) {
+    if (user) {
+      user.password = newPassword
+      await user.save()
+      res.json({
+        success: true,
+        message: 'Your password updated.',
+      })
+    } else {
+      res.status(400)
+      throw new Error('User not found.')
+    }
+  } else {
+    res.status(400)
+    throw new Error('Old password is not correct.')
+  }
+})
