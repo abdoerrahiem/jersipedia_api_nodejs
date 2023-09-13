@@ -101,8 +101,8 @@ export const updatePassword = asyncHandler(async (req, res) => {
 
   const user = await User.findById(req.user?._id)
 
-  if (await user?.comparePassword(oldPassword)) {
-    if (user) {
+  if (user) {
+    if (await user?.comparePassword(oldPassword)) {
       user.password = newPassword
       await user.save()
       res.json({
@@ -111,10 +111,10 @@ export const updatePassword = asyncHandler(async (req, res) => {
       })
     } else {
       res.status(400)
-      throw new Error('User not found.')
+      throw new Error('Old password is not correct.')
     }
   } else {
-    res.status(400)
-    throw new Error('Old password is not correct.')
+    res.status(404)
+    throw new Error('User not found.')
   }
 })
