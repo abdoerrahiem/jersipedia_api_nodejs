@@ -75,10 +75,10 @@ export const updatePhotoUser = asyncHandler(async (req, res) => {
     throw new Error('Image cannot be empty.')
   }
 
-  if (!file?.mimetype?.includes('image')) {
-    res.status(400)
-    throw new Error('Image is not valid.')
-  }
+  // if (!file?.mimetype?.includes('image')) {
+  //   res.status(400)
+  //   throw new Error('Image is not valid.')
+  // }
 
   const data = await cloudinary.uploader.upload(String(file.path), {
     folder: process.env.CLOUDINARY_FOLDER,
