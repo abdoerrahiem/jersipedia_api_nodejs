@@ -58,7 +58,6 @@ export const updateUser = asyncHandler(async (req, res) => {
     user.province = req.body.province
     user.city = req.body.city
     user.isAdmin = req.body.isAdmin
-    user.photo = req.body.photo
   }
   await user?.save()
 
