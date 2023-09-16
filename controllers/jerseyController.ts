@@ -63,7 +63,16 @@ export const getJersey = asyncHandler(async (req, res) => {
     .limit(Number(size))
     .skip(Number(size) * Number(page) - Number(size))
 
-  const jerseyLength = (await Jersey.find()).length
+  const jerseyLength = await Jersey.find(
+    String(league).length > 0
+      ? {
+          title: { $regex: title, $options: 'i' },
+          league,
+        }
+      : {
+          title: { $regex: title, $options: 'i' },
+        }
+  ).countDocuments()
 
   res.json({
     success: true,
