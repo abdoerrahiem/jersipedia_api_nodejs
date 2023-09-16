@@ -5,6 +5,8 @@ import { notFound, errorHandler } from './middlewares/error'
 import cors from 'cors'
 import userRoute from './routes/userRoute'
 import rajaOngkirRoute from './routes/rajaOngkirRoute'
+import leagueRoute from './routes/leagueRoute'
+import jerseyRoute from './routes/jerseyRoute'
 import connectCloudinary from './config/cloudinary'
 
 dotenv.config()
@@ -21,6 +23,8 @@ app.get('/', (_, res) => res.json({ success: true, message: 'JersiPedia API' }))
 
 app.use('/api/user', userRoute)
 app.use('/api/raja-ongkir', rajaOngkirRoute)
+app.use('/api/league', leagueRoute)
+app.use('/api/jersey', jerseyRoute)
 
 app.use(notFound)
 app.use(errorHandler)
