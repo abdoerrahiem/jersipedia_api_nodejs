@@ -76,9 +76,9 @@ export const getJersey = asyncHandler(async (req, res) => {
 
   res.json({
     success: true,
-    count: jerseys.length,
     data: jerseys,
     meta: {
+      count: jerseys.length,
       currentPage: Number(page),
       maxPage: Math.ceil(jerseyLength / Number(size)),
     },
