@@ -62,6 +62,7 @@ export const getJersey = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 })
     .limit(Number(size))
     .skip(Number(size) * Number(page) - Number(size))
+    .populate('league')
 
   const jerseyLength = await Jersey.find(
     String(league).length > 0
