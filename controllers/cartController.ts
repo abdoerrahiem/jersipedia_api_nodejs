@@ -40,7 +40,9 @@ export const addCart = asyncHandler(async (req, res) => {
 })
 
 export const getCart = asyncHandler(async (req, res) => {
-  const cart = await Cart.find({ user: req.user?._id }).populate('jersey')
+  const cart = await Cart.find({ user: req.user?._id })
+    .populate('jersey')
+    .sort({ createdAt: -1 })
 
   res.json({
     success: true,
