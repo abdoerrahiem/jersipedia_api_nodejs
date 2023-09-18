@@ -2,7 +2,6 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/User'
 import generateToken from '../utils/generateToken'
 import { cloudinary } from '../config/cloudinary'
-import bcrypt from 'bcrypt'
 
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body

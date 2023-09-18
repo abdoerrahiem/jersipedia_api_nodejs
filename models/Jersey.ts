@@ -8,7 +8,11 @@ export interface IJersey extends mongoose.Document {
   weight: Number
   stock: Number
   size: String[]
-  league: String
+  league: {
+    title: String
+    image: String
+    _id: String
+  }
   createdAt: Date
   updatedAt: Date
 }
