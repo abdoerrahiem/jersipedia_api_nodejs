@@ -19,16 +19,14 @@ export const paymentHandling = asyncHandler(async (req, res) => {
   })
 })
 
+export const redirectPayment = asyncHandler(async (req, res) => {
+  res.json({
+    success: true,
+    message: 'Payment proccessing.',
+  })
+})
+
 export const redirectPaymentSuccess = asyncHandler(async (req, res) => {
-  // const order = await Order.findById(req.query.order_id)
-  // if (!order) {
-  //   res.status(404)
-  //   throw new Error('Order not found.')
-  // }
-
-  // order.status = 'settlement'
-  // await order.save()
-
   res.json({
     success: true,
     message: 'Payment success.',
@@ -36,15 +34,6 @@ export const redirectPaymentSuccess = asyncHandler(async (req, res) => {
 })
 
 export const redirectPaymentPending = asyncHandler(async (req, res) => {
-  // const order = await Order.findById(req.query.order_id)
-  // if (!order) {
-  //   res.status(404)
-  //   throw new Error('Order not found.')
-  // }
-
-  // order.status = 'pending'
-  // await order.save()
-
   res.json({
     success: true,
     message: 'Payment pending.',
@@ -52,15 +41,6 @@ export const redirectPaymentPending = asyncHandler(async (req, res) => {
 })
 
 export const redirectPaymentError = asyncHandler(async (req, res) => {
-  // const order = await Order.findById(req.query.order_id)
-  // if (!order) {
-  //   res.status(404)
-  //   throw new Error('Order not found.')
-  // }
-
-  // order.status = 'error'
-  // await order.save()
-
   res.json({
     success: true,
     message: 'Payment error.',
