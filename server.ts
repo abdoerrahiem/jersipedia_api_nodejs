@@ -8,6 +8,8 @@ import rajaOngkirRoute from './routes/rajaOngkirRoute'
 import leagueRoute from './routes/leagueRoute'
 import jerseyRoute from './routes/jerseyRoute'
 import cartRoute from './routes/cartRoute'
+import orderRoute from './routes/orderRoute'
+import paymentRoute from './routes/paymentRoute'
 import connectCloudinary from './config/cloudinary'
 
 dotenv.config()
@@ -27,6 +29,8 @@ app.use('/api/raja-ongkir', rajaOngkirRoute)
 app.use('/api/league', leagueRoute)
 app.use('/api/jersey', jerseyRoute)
 app.use('/api/cart', cartRoute)
+app.use('/api/order', orderRoute)
+app.use('/api/payment', paymentRoute)
 
 app.use(notFound)
 app.use(errorHandler)
