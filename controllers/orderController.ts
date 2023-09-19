@@ -1,6 +1,7 @@
 import axios from 'axios'
 import asyncHandler from 'express-async-handler'
 import Order from '../models/Order'
+import Cart from '../models/Cart'
 
 export const createOrder = asyncHandler(async (req, res) => {
   const { cart, estimation, ongkir, total } = req.body
@@ -50,6 +51,13 @@ export const createOrder = asyncHandler(async (req, res) => {
     .then(async (response) => {
       order.paymentLink = response.data.redirect_url
       await order.save()
+
+      await Promise.all(
+        cart.map(async (id: string) => {
+          await Cart.findByIdAndRemove(id)
+        })
+      )
+
       res.json({
         success: true,
         data: response.data.redirect_url,
