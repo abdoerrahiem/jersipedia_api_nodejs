@@ -1,22 +1,32 @@
 import axios from 'axios'
 import asyncHandler from 'express-async-handler'
+import Order from '../models/Order'
 
 export const createOrder = asyncHandler(async (req, res) => {
-  const { total } = req.body
+  const { cart, estimation, ongkir, total } = req.body
 
-  if (!total) {
+  if (!cart || !estimation! || !ongkir || !total) {
     res.status(400)
-    throw new Error('Total is not provided.')
+    throw new Error('All data must be provided.')
   }
 
-  const order_id = `${req.user?._id}-${new Date().valueOf()}`
+  const order = new Order({
+    user: req.user?._id,
+    cart,
+    paymentLink: '',
+    status: 'pending',
+    estimation,
+    ongkir,
+    total,
+  })
+
   const first_name = req.user?.name
   const email = req.user?.email
   const phone = req.user?.phone
 
   const data = {
     transaction_details: {
-      order_id,
+      order_id: order._id,
       gross_amount: total,
     },
     credit_card: {
@@ -37,10 +47,12 @@ export const createOrder = asyncHandler(async (req, res) => {
         Authorization: process.env.MIDTRANS_AUTH,
       },
     })
-    .then((response) => {
+    .then(async (response) => {
+      order.paymentLink = response.data.redirect_url
+      await order.save()
       res.json({
         success: true,
-        data: response.data,
+        data: response.data.redirect_url,
       })
     })
     .catch(() => {
@@ -49,4 +61,22 @@ export const createOrder = asyncHandler(async (req, res) => {
         message: 'Error, try again later.',
       })
     })
+})
+
+export const getOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({
+    user: req.user?._id,
+  })
+    .sort({ createdAt: -1 })
+    .populate({
+      path: 'cart',
+      populate: {
+        path: 'jersey',
+      },
+    })
+
+  res.json({
+    success: true,
+    data: orders,
+  })
 })
