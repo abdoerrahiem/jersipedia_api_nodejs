@@ -22,7 +22,7 @@ export const paymentHandling = asyncHandler(async (req, res) => {
 export const redirectPayment = asyncHandler(async (req, res) => {
   res.json({
     success: true,
-    message: 'Payment proccessing.',
+    message: `Your transaction status: ${req.query.transaction_status}`,
   })
 })
 
