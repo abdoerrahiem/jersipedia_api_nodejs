@@ -2,9 +2,9 @@ import asyncHandler from 'express-async-handler'
 import Order from '../models/Order'
 
 export const paymentHandling = asyncHandler(async (req, res) => {
-  const { transaction_id, transaction_status } = req.body
+  const { order_id, transaction_status } = req.body
 
-  const order = await Order.findById(transaction_id)
+  const order = await Order.findById(order_id)
   if (!order) {
     res.status(404)
     throw new Error('Order not found.')
