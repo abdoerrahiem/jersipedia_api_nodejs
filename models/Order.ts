@@ -1,8 +1,17 @@
 import mongoose from 'mongoose'
 
+export interface IOrderCart extends mongoose.Document {
+  jerseyId: String
+  jerseyImage: String
+  jerseyTitle: String
+  jerseyPrice: Number
+  amount: Number
+  total: Number
+}
+
 export interface IOrder extends mongoose.Document {
   user: String
-  cart: String
+  cart: IOrderCart[]
   paymentLink: String
   status: String
   estimation: String
@@ -15,7 +24,16 @@ export interface IOrder extends mongoose.Document {
 const OrderSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.ObjectId, ref: 'User' },
-    cart: [{ type: mongoose.Schema.ObjectId, ref: 'Cart' }],
+    cart: [
+      {
+        jerseyId: { type: String },
+        jerseyImage: { type: String },
+        jerseyTitle: { type: String },
+        jerseyPrice: { type: Number },
+        amount: { type: Number },
+        total: { type: Number },
+      },
+    ],
     paymentLink: {
       type: String,
     },
@@ -33,6 +51,10 @@ const OrderSchema = new mongoose.Schema(
     },
     total: {
       type: Number,
+      required: true,
+    },
+    courier: {
+      type: String,
       required: true,
     },
   },

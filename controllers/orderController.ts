@@ -4,21 +4,45 @@ import Order from '../models/Order'
 import Cart from '../models/Cart'
 
 export const createOrder = asyncHandler(async (req, res) => {
-  const { cart, estimation, ongkir, total } = req.body
+  const { cart, estimation, ongkir, total, courier } = req.body
 
-  if (!cart || !estimation! || !ongkir || !total) {
+  if (!cart || !estimation! || !ongkir || !total || !courier) {
     res.status(400)
     throw new Error('All data must be provided.')
   }
 
+  const cartData: any[] = []
+
+  await Promise.all(
+    cart.map(async (id: string) => {
+      const cart = await Cart.findById(id).populate('jersey')
+      if (cart) {
+        cartData.push({
+          jerseyId: cart?.jersey?._id!,
+          jerseyImage: cart?.jersey.images[0]!,
+          jerseyTitle: cart?.jersey?.title!,
+          jerseyPrice: cart?.jersey?.price!,
+          amount: cart?.amount!,
+          total: cart?.total!,
+        })
+      }
+    })
+  )
+
+  if (cartData.length === 0) {
+    res.status(400)
+    throw new Error('Cart already checkout.')
+  }
+
   const order = new Order({
     user: req.user?._id,
-    cart,
+    cart: cartData,
     paymentLink: '',
     status: 'pending',
     estimation,
     ongkir,
     total,
+    courier,
   })
 
   const first_name = req.user?.name
@@ -40,6 +64,12 @@ export const createOrder = asyncHandler(async (req, res) => {
     },
   }
 
+  await Promise.all(
+    cart.map(async (id: string) => {
+      await Cart.findByIdAndRemove(id)
+    })
+  )
+
   axios
     .post(`${process.env.MIDTRANS_URL}/transactions`, data, {
       headers: {
@@ -51,12 +81,6 @@ export const createOrder = asyncHandler(async (req, res) => {
     .then(async (response) => {
       order.paymentLink = response.data.redirect_url
       await order.save()
-
-      await Promise.all(
-        cart.map(async (id: string) => {
-          await Cart.findByIdAndRemove(id)
-        })
-      )
 
       res.json({
         success: true,
@@ -74,14 +98,7 @@ export const createOrder = asyncHandler(async (req, res) => {
 export const getOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({
     user: req.user?._id,
-  })
-    .sort({ createdAt: -1 })
-    .populate({
-      path: 'cart',
-      populate: {
-        path: 'jersey',
-      },
-    })
+  }).sort({ createdAt: -1 })
 
   res.json({
     success: true,

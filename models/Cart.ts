@@ -1,14 +1,23 @@
 import mongoose from 'mongoose'
 
 export interface ICart extends mongoose.Document {
-  title: String
-  images: String[]
-  price: Number
-  type: String
-  weight: Number
-  stock: Number
-  size: String[]
+  user: String
+  jersey: {
+    _id: String
+    league: String
+    title: String
+    images: String[]
+    price: Number
+    type: String
+    weight: Number
+    stock: Number
+    size: String[]
+  }
   league: String
+  amount: Number
+  size: String
+  description: String
+  total: Number
   createdAt: Date
   updatedAt: Date
 }
